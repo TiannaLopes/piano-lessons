@@ -1,5 +1,5 @@
-
 import React, { useState, useEffect } from 'react';
+import * as Tone from 'tone';
 
 const PianoKey = ({ note, type, onClick }) => {
   const [isActive, setIsActive] = useState(false);
@@ -15,9 +15,16 @@ const PianoKey = ({ note, type, onClick }) => {
     }
   }, [isActive]);
 
+  const playNote = (note) => {
+    Tone.start();
+
+    const synth = new Tone.Synth().toDestination();
+    synth.triggerAttackRelease(note, "8n");
+  };
+
   return (
-    <div className={keyClassName} onClick={() => { setIsActive(true); onClick(note); }}>
-      <span className="key-label">{note}</span> 
+    <div className={keyClassName} onClick={() => { setIsActive(true); onClick(note); playNote(note); }}>
+      <span className="key-label">{note}</span>
     </div>
   );
 };
