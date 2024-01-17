@@ -1,29 +1,13 @@
-import React, { useState, useEffect } from 'react';
-import * as Tone from 'tone';
+import React from 'react';
+import { usePianoKeys } from '../PianoKeysContext';
 
-const PianoKey = ({ note, type, group, onClick }) => {
-  const [isActive, setIsActive] = useState(false);
-  const isBlackKey = type === 'black';
-  const keyClassName = `piano-key ${isBlackKey ? 'black-key' : 'white-key'} ${isActive ? `active-group-${group}` : ''}`;
-
-  useEffect(() => {
-    if (isActive) {
-      const timeoutId = setTimeout(() => {
-        setIsActive(false);
-      }, 1000);
-      return () => clearTimeout(timeoutId);
-    }
-  }, [isActive]);
-
-  const playNote = (note) => {
-    Tone.start();
-
-    const synth = new Tone.Synth().toDestination();
-    synth.triggerAttackRelease(note, "8n");
-  };
+const PianoKey = ({ note, type }) => {
+  const { activeKeys } = usePianoKeys();
+  const isActive = activeKeys.includes(note);
+  const keyClassName = `piano-key ${type === 'black' ? 'black-key' : 'white-key'} ${isActive ? 'active' : ''}`;
 
   return (
-    <div className={keyClassName} onClick={() => { setIsActive(true); onClick(note); playNote(note); }}>
+    <div className={keyClassName}>
       <span className="key-label">{note}</span>
     </div>
   );
