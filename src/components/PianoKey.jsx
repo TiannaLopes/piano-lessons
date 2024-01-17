@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import * as Tone from 'tone';
 
-const PianoKey = ({ note, type, onClick }) => {
+const PianoKey = ({ note, type, group, onClick }) => {
   const [isActive, setIsActive] = useState(false);
   const isBlackKey = type === 'black';
-  const keyClassName = `piano-key ${isBlackKey ? 'black-key' : 'white-key'} ${isActive ? 'active' : ''}`;
+  const keyClassName = `piano-key ${isBlackKey ? 'black-key' : 'white-key'} ${isActive ? `active-group-${group}` : ''}`;
 
   useEffect(() => {
     if (isActive) {

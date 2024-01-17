@@ -1,10 +1,9 @@
-/* PianoKeyboard.css */
 .piano {
   position: relative;
   display: flex;
   justify-content: center;
   flex-wrap: wrap;
-  margin-top: 20px; /* Adjust based on label height */
+  margin-top: 20px; 
 }
 
 .piano-key {
@@ -45,4 +44,16 @@
 
 .black-key .key-label {
   color: #fff;
+}
+
+.active-group-1 {
+  background-color: #ff6666; 
+}
+
+.active-group-2 {
+  background-color: #66ff66; 
+}
+
+.active-group-3 {
+  background-color: #5757c4;
 }
