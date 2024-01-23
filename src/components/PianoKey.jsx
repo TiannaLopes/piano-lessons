@@ -1,29 +1,29 @@
-import React, { useState, useEffect } from 'react';
-import * as Tone from 'tone';
+import React, { useRef, useEffect } from 'react';
+import { usePianoKeys } from '../PianoKeysContext';
+import gsap from 'gsap';
 
-const PianoKey = ({ note, type, group, onClick }) => {
-  const [isActive, setIsActive] = useState(false);
-  const isBlackKey = type === 'black';
-  const keyClassName = `piano-key ${isBlackKey ? 'black-key' : 'white-key'} ${isActive ? `active-group-${group}` : ''}`;
+const PianoKey = ({ note, type, onPlayNote }) => {
+  const keyRef = useRef(null);
+  const { activeKeys } = usePianoKeys();
+  const isActive = activeKeys.includes(note);
+  const keyClassName = `piano-key ${type === 'black' ? 'black-key' : 'white-key'} ${isActive ? 'active' : ''}`;
 
-  useEffect(() => {
-    if (isActive) {
-      const timeoutId = setTimeout(() => {
-        setIsActive(false);
-      }, 1000);
-      return () => clearTimeout(timeoutId);
-    }
-  }, [isActive]);
+ const handleClick = () => {
+    onPlayNote(note);
 
-  const playNote = (note) => {
-    Tone.start();
-
-    const synth = new Tone.Synth().toDestination();
-    synth.triggerAttackRelease(note, "8n");
+    // Animate the key using GSAP
+    gsap.to(keyRef.current, {
+      scale: 0.9,
+      duration: 0.1,
+      ease: "power1.out",
+      onComplete: () => {
+        gsap.to(keyRef.current, { scale: 1, duration: 0.1, ease: "power1.in" });
+      }
+    });
   };
 
   return (
-    <div className={keyClassName} onClick={() => { setIsActive(true); onClick(note); playNote(note); }}>
+    <div ref={keyRef} className={keyClassName} onClick={handleClick}>
       <span className="key-label">{note}</span>
     </div>
   );

@@ -1,13 +1,23 @@
 import React from 'react';
-import './PianoKeyboard.css';
+import { PianoKeysProvider } from './PianoKeysContext';
+import PianoSongPlayer from './components/PianoSongPlayer';
 import PianoKeyboard from './components/PianoKeyboard';
 
 function App() {
+
+  const handleNotePlay = (note) => {
+    if (window.playNote) {
+      window.playNote(note);
+    }
+  };
+
   return (
-    <div className="App">
-      <h1>My Piano App</h1>
-      <PianoKeyboard />
-    </div>
+    <PianoKeysProvider>
+      <div className="App">
+        <PianoSongPlayer />
+        <PianoKeyboard onPlayNote={handleNotePlay} />
+      </div>
+    </PianoKeysProvider>
   );
 }
 
