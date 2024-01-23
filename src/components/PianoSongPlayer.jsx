@@ -1,33 +1,39 @@
-import React, { useEffect } from 'react';
-import MidiPlayer from 'midi-player-js';
-import { PianoKeysProvider, usePianoKeys } from '../PianoKeysContext'; // adjust path as needed
+import React, { useState, useEffect } from 'react';
+import * as Tone from 'tone';
+import { usePianoKeys } from '../PianoKeysContext';
 
 const PianoSongPlayer = () => {
   const { lightUpKey } = usePianoKeys();
+  const [isAudioReady, setIsAudioReady] = useState(false);
 
   useEffect(() => {
-  const Player = new MidiPlayer.Player((event) => {
-      if (event.name === 'Note on' && event.velocity > 0) {
-        lightUpPianoKey(event.noteName);
-      }
-    });
+    if (isAudioReady) {
+      const synth = new Tone.Synth().toDestination();
 
-    // Load MIDI file
-    Player.loadFile('path/to/your-midi-file.mid');
-    Player.play();
+      // Example of playing a note
+      const playNote = (note) => {
+        synth.triggerAttackRelease(note, '8n');
+        lightUpKey(note);
+      };
 
-    return () => {
-      Player.stop();
-    };
- }, [lightUpKey]); 
+      // Play a note (replace with your logic to play notes from a MIDI file or other source)
+      playNote('C4');
+    }
+  }, [isAudioReady, lightUpKey]);
 
- const lightUpPianoKey = (noteName) => {
-    lightUpKey(noteName); 
+  const handleStartAudio = async () => {
+    await Tone.start();
+    console.log('Audio is ready');
+    setIsAudioReady(true);
   };
+
   return (
-  <PianoKeysProvider>
-    <PianoSongPlayer />
-  </PianoKeysProvider>
+    <div>
+      {!isAudioReady && (
+        <button onClick={handleStartAudio}>Start Audio</button>
+      )}
+      {/* Your Piano Song Player UI here */}
+    </div>
   );
 };
 

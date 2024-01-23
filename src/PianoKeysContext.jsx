@@ -8,13 +8,19 @@ export const PianoKeysProvider = ({ children }) => {
   const [activeKeys, setActiveKeys] = useState([]);
 
   const lightUpKey = (key) => {
-    setActiveKeys([...activeKeys, key]);
-    setTimeout(() => {
-      setActiveKeys(activeKeys.filter(activeKey => activeKey !== key));
-    }, 1000); 
-  };
+    setActiveKeys((prevActiveKeys) => {
+      // Adding key only if it's not already present
+      if (!prevActiveKeys.includes(key)) {
+        return [...prevActiveKeys, key];
+      }
+      return prevActiveKeys;
+    });
 
- return (
+    setTimeout(() => {
+      setActiveKeys((prevActiveKeys) => prevActiveKeys.filter(activeKey => activeKey !== key));
+    }, 1000);
+  };
+  return (
     <PianoKeysContext.Provider value={{ activeKeys, lightUpKey }}>
       {children}
     </PianoKeysContext.Provider>
