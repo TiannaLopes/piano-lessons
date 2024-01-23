@@ -1,0 +1,15 @@
+{
+  "files": {
+    "main.css": "/piano-lessons/static/css/main.eb24977b.css",
+    "main.js": "/piano-lessons/static/js/main.5ab2df06.js",
+    "static/js/787.9f8941ca.chunk.js": "/piano-lessons/static/js/787.9f8941ca.chunk.js",
+    "index.html": "/piano-lessons/index.html",
+    "main.eb24977b.css.map": "/piano-lessons/static/css/main.eb24977b.css.map",
+    "main.5ab2df06.js.map": "/piano-lessons/static/js/main.5ab2df06.js.map",
+    "787.9f8941ca.chunk.js.map": "/piano-lessons/static/js/787.9f8941ca.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.eb24977b.css",
+    "static/js/main.5ab2df06.js"
+  ]
+}
