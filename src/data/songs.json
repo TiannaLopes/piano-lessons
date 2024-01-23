@@ -1,0 +1,46 @@
+[
+  {
+    "title": "Twinkle Twinkle Little Star",
+    "notes": ["C4", "C4", "G4", "G4", "A4", "A4", "G4", "F4", "F4", "E4", "E4", "D4", "D4", "C4"]
+  },
+  {
+    "title": "Mary Had a Little Lamb",
+    "notes": ["E4", "D4", "C4", "D4", "E4", "E4", "E4", "D4", "D4", "D4", "E4", "G4", "G4"]
+  },
+  {
+    "title": "Happy Birthday",
+    "notes": ["C4", "C4", "D4", "C4", "F4", "E4", "C4", "C4", "D4", "C4", "G4", "F4"]
+  },
+  {
+    "title": "Jingle Bells",
+    "notes": ["E4", "E4", "E4", "E4", "E4", "E4", "E4", "G4", "C4", "D4", "E4"]
+  },
+  {
+    "title": "Ode to Joy",
+    "notes": ["E4", "E4", "F4", "G4", "G4", "F4", "E4", "D4", "C4", "C4", "D4", "E4", "E4", "D4", "D4"]
+  },
+  {
+    "title": "Fur Elise",
+    "notes": ["E4", "D#4", "E4", "D#4", "E4", "B4", "D4", "C4", "A4"]
+  },
+  {
+    "title": "The Entertainer",
+    "notes": ["D4", "E4", "C4", "E4", "A4", "B4", "B4", "C4", "E4"]
+  },
+  {
+    "title": "Moonlight Sonata",
+    "notes": ["C#4", "G#4", "C#5", "E4", "G#4", "C#5", "E4", "G#4", "C#5"]
+  },
+  {
+    "title": "Canon in D",
+    "notes": ["D4", "A4", "B4", "F#4", "G4", "D4", "G4", "A4"]
+  },
+  {
+    "title": "Clair de Lune",
+    "notes": ["D#4", "G#4", "B4", "D5", "F5", "G#4", "B4", "D5"]
+  },
+  {
+    "title": "Gymnopedie No. 1",
+    "notes": ["D4", "F4", "A4", "C5", "E4", "G4", "A4", "C5"]
+  }
+]
