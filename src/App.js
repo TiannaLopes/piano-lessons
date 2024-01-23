@@ -1,20 +1,21 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { PianoKeysProvider } from './PianoKeysContext';
 import PianoSongPlayer from './components/PianoSongPlayer';
 import PianoKeyboard from './components/PianoKeyboard';
 
 function App() {
-  const [selectedNote, setSelectedNote] = useState(null);
 
-  const handleNoteSelect = (note) => {
-    setSelectedNote(note);
+  const handleNotePlay = (note) => {
+    if (window.playNote) {
+      window.playNote(note);
+    }
   };
 
   return (
     <PianoKeysProvider>
       <div className="App">
-        <PianoSongPlayer selectedNote={selectedNote} />
-        <PianoKeyboard onNoteSelect={handleNoteSelect} />
+        <PianoSongPlayer />
+        <PianoKeyboard onPlayNote={handleNotePlay} />
       </div>
     </PianoKeysProvider>
   );

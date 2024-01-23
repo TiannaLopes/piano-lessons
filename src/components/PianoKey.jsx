@@ -2,15 +2,14 @@ import React, { useRef, useEffect } from 'react';
 import { usePianoKeys } from '../PianoKeysContext';
 import gsap from 'gsap';
 
-const PianoKey = ({ note, type, onClick }) => {
+const PianoKey = ({ note, type, onPlayNote }) => {
   const keyRef = useRef(null);
   const { activeKeys } = usePianoKeys();
   const isActive = activeKeys.includes(note);
   const keyClassName = `piano-key ${type === 'black' ? 'black-key' : 'white-key'} ${isActive ? 'active' : ''}`;
 
-  const handleClick = () => {
-    // Trigger any onClick functionality
-    onClick(note);
+ const handleClick = () => {
+    onPlayNote(note);
 
     // Animate the key using GSAP
     gsap.to(keyRef.current, {
