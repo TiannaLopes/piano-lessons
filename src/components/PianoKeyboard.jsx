@@ -3,9 +3,10 @@ import PianoKey from './PianoKey';
 import '../PianoKeyboard.css';
 import keys from '../data/keys.json'; 
 
-const PianoKeyboard = () => {
+const PianoKeyboard = ({ onNoteSelect }) => {
   const handleClick = (note) => {
     console.log(note + ' was clicked');
+    onNoteSelect(note);
   };
 
   return (

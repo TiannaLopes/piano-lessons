@@ -1,25 +1,31 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import * as Tone from 'tone';
 import { usePianoKeys } from '../PianoKeysContext';
 
-const PianoSongPlayer = () => {
+const PianoSongPlayer = ({ selectedNote }) => {
   const { lightUpKey } = usePianoKeys();
   const [isAudioReady, setIsAudioReady] = useState(false);
+  const synthRef = useRef(null); // Reference to the Tone.js Synthesizer
 
   useEffect(() => {
-    if (isAudioReady) {
-      const synth = new Tone.Synth().toDestination();
-
-      // Example of playing a note
-      const playNote = (note) => {
-        synth.triggerAttackRelease(note, '8n');
-        lightUpKey(note);
-      };
-
-      // Play a note (replace with your logic to play notes from a MIDI file or other source)
-      playNote('C4');
+    // Initialize the synth
+    if (!synthRef.current) {
+      synthRef.current = new Tone.Synth().toDestination();
     }
-  }, [isAudioReady, lightUpKey]);
+  }, []);
+
+  useEffect(() => {
+    if (selectedNote && isAudioReady) {
+      // Start playing the note
+      synthRef.current.triggerAttack(selectedNote);
+      lightUpKey(selectedNote);
+
+      // Optionally, set a maximum duration for the note
+      setTimeout(() => {
+        synthRef.current.triggerRelease();
+      }, 500); // Stop playing the note after half a second
+    }
+  }, [selectedNote, isAudioReady, lightUpKey]);
 
   const handleStartAudio = async () => {
     await Tone.start();
@@ -27,10 +33,19 @@ const PianoSongPlayer = () => {
     setIsAudioReady(true);
   };
 
+  const handleStopAudio = () => {
+    // Stop any ongoing sound
+    if (synthRef.current) {
+      synthRef.current.triggerRelease();
+    }
+  };
+
   return (
     <div>
-      {!isAudioReady && (
+      {!isAudioReady ? (
         <button onClick={handleStartAudio}>Start Audio</button>
+      ) : (
+        <button onClick={handleStopAudio}>Stop Audio</button>
       )}
       {/* Your Piano Song Player UI here */}
     </div>
