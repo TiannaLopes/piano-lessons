@@ -3,32 +3,32 @@ name: Deploy Piano Lessons React App
 on:
   push:
     branches:
-      - main  # Change to your default branch if needed
-  workflow_dispatch:  # Allows manual triggering
+      - main
+  workflow_dispatch:
 
 jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout Repository
+      - name: Checkout code
         uses: actions/checkout@v3
 
       - name: Set up Node.js
         uses: actions/setup-node@v3
         with:
-          node-version: '18'
+          node-version: 18
 
-      - name: Install Dependencies
+      - name: Install dependencies
         run: npm install
 
-      - name: Build React App
+      - name: Build the project
+        env:
+          NEXT_PUBLIC_GA_ID: ${{ secrets.NEXT_PUBLIC_GA_ID }}
         run: npm run build
 
-      - name: Configure Git Identity
-        run: |
-          git config user.name "TiannaLopes"
-          git config user.email "tiannalopes@shaw.ca"
-
       - name: Deploy to GitHub Pages
-        run: npx gh-pages -d build
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./out
