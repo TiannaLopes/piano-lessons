@@ -16,7 +16,7 @@ const PianoKeyboard = ({ onPlayNote }) => {
           key={index}
           note={key.note}
           type={key.type}
-          onPlayNote={onPlayNote}  
+          onClick={() => handleClick(key.note)}
         />
       ))}
     </div>
